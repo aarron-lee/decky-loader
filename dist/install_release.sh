@@ -37,7 +37,7 @@ curl -L https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unof
 
 cat > "${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-backup.service" <<- EOM
 [Unit]
-Description=SteamDeck Plugin Loader
+Description=Unofficial SteamDeck Plugin Loader
 After=network-online.target
 Wants=network-online.target
 [Service]
@@ -69,5 +69,5 @@ cp ${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-backup.service ${HOMEBRE
 rm ${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-backup.service ${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-release.service
 
 systemctl daemon-reload
-systemctl start plugin_loader
-systemctl enable plugin_loader
+systemctl start unofficial_plugin_loader
+systemctl enable unofficial_plugin_loader
