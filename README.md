@@ -17,7 +17,7 @@ All files for unofficialy decky loader can be found in `$HOME/.unofficial_homebr
 Run in terminal and type your password when prompted.
 
 ```bash
-curl -L https://github.com/aarron-lee/decky-installer/releases/latest/download/install_release.sh | sh
+curl -L https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/install_release.sh | sh
 ```
 
 ### 👋 Uninstallation
@@ -25,7 +25,7 @@ curl -L https://github.com/aarron-lee/decky-installer/releases/latest/download/i
 Run in terminal and type your password when prompted.
 
 ```
-curl -L https://github.com/aarron-lee/decky-installer/releases/latest/download/uninstall.sh | sh
+curl -L https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/uninstall.sh | sh
 ```
 
 ## 📜 Credits
