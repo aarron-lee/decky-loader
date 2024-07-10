@@ -42,11 +42,6 @@ jobs:
       - name: Checkout 🧰
         uses: actions/checkout@v3
 
-      - name: Set up NodeJS 18 💎
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Set up Python 3.10.2 🐍
         uses: actions/setup-python@v4
         with:
@@ -73,34 +68,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: ./dist/UnofficialPluginLoader
-
-  build-win:
-    name: Build UnofficialPluginLoader for Win
-    runs-on: windows-2022
-
-    steps:
-      - name: Checkout 🧰
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.10.2 🐍
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10.2"
-
-      - name: Install Python dependencies ⬇️
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyinstaller==5.5
-          pip install -r requirements.txt
-
-      - name: Build Python Backend 🛠️
-        run: pyinstaller --noconfirm --onefile --name "UnofficialPluginLoader" --add-data "./backend/static;/static" --add-data "./backend/locales;/locales" --add-data "./backend/legacy;/legacy" --add-data "./plugin;/plugin" ./backend/main.py
-
-      - name: Upload package artifact ⬆️
-        uses: actions/upload-artifact@v3
-        with:
-          name: UnofficialPluginLoader Win
-          path: ./dist/UnofficialPluginLoader.exe
 
   release:
     name: Release stable version of the package
