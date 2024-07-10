@@ -63,7 +63,7 @@ DECKY_HOME: str = os.getenv("DECKY_HOME", default="")
 """
 The root of the decky folder.
 Environment variable: `DECKY_HOME`.
-e.g.: `/home/deck/homebrew`
+e.g.: `/home/deck/.unofficial_homebrew`
 """
 
 DECKY_PLUGIN_SETTINGS_DIR: str = os.getenv(
@@ -71,7 +71,7 @@ DECKY_PLUGIN_SETTINGS_DIR: str = os.getenv(
 """
 The recommended path in which to store configuration files (created automatically).
 Environment variable: `DECKY_PLUGIN_SETTINGS_DIR`.
-e.g.: `/home/deck/homebrew/settings/decky-plugin-template`
+e.g.: `/home/deck/.unofficial_homebrew/settings/decky-plugin-template`
 """
 
 DECKY_PLUGIN_RUNTIME_DIR: str = os.getenv(
@@ -79,21 +79,21 @@ DECKY_PLUGIN_RUNTIME_DIR: str = os.getenv(
 """
 The recommended path in which to store runtime data (created automatically).
 Environment variable: `DECKY_PLUGIN_RUNTIME_DIR`.
-e.g.: `/home/deck/homebrew/data/decky-plugin-template`
+e.g.: `/home/deck/.unofficial_homebrew/data/decky-plugin-template`
 """
 
 DECKY_PLUGIN_LOG_DIR: str = os.getenv("DECKY_PLUGIN_LOG_DIR", default="")
 """
 The recommended path in which to store persistent logs (created automatically).
 Environment variable: `DECKY_PLUGIN_LOG_DIR`.
-e.g.: `/home/deck/homebrew/logs/decky-plugin-template`
+e.g.: `/home/deck/.unofficial_homebrew/logs/decky-plugin-template`
 """
 
 DECKY_PLUGIN_DIR: str = os.getenv("DECKY_PLUGIN_DIR", default="")
 """
 The root of the plugin's directory.
 Environment variable: `DECKY_PLUGIN_DIR`.
-e.g.: `/home/deck/homebrew/plugins/decky-plugin-template`
+e.g.: `/home/deck/.unofficial_homebrew/plugins/decky-plugin-template`
 """
 
 DECKY_PLUGIN_NAME: str = os.getenv("DECKY_PLUGIN_NAME", default="")
@@ -121,7 +121,7 @@ DECKY_PLUGIN_LOG: str = os.path.join(DECKY_PLUGIN_LOG_DIR, "plugin.log")
 """
 The path to the plugin's main logfile.
 Environment variable: `DECKY_PLUGIN_LOG`.
-e.g.: `/home/deck/homebrew/logs/decky-plugin-template/plugin.log`
+e.g.: `/home/deck/.unofficial_homebrew/logs/decky-plugin-template/plugin.log`
 """
 
 """

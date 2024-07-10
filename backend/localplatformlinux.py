@@ -161,15 +161,15 @@ def get_unprivileged_path() -> str:
     
     if path == None:
         logger.debug("Unprivileged path is not properly configured. Making something up!")
-        # Expected path of loader binary is /home/deck/homebrew/service/PluginLoader
+        # Expected path of loader binary is /home/deck/.unofficial_homebrew/service/UnofficialPluginLoader
         path = _parent_dir(_parent_dir(os.path.realpath(sys.argv[0])))
 
         if not os.path.exists(path):
             path = None
 
     if path == None:
-        logger.warn("Unprivileged path is not properly configured. Defaulting to /home/deck/homebrew")
-        path = "/home/deck/homebrew" # We give up
+        logger.warn("Unprivileged path is not properly configured. Defaulting to /home/deck/.unofficial_homebrew")
+        path = "/home/deck/.unofficial_homebrew" # We give up
     
     return path
 

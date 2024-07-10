@@ -5,7 +5,7 @@ import Logger from '../logger';
 import { InstallType } from '../plugin';
 
 export enum TranslationClass {
-  PLUGIN_LOADER = 'PluginLoader',
+  PLUGIN_LOADER = 'UnofficialPluginLoader',
   PLUGIN_INSTALL_MODAL = 'PluginInstallModal',
   DEVELOPER = 'Developer',
 }

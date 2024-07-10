@@ -6,7 +6,7 @@ Wants=network-online.target
 Type=simple
 User=root
 Restart=always
-ExecStart=${HOMEBREW_FOLDER}/services/PluginLoader
+ExecStart=${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
 WorkingDirectory=${HOMEBREW_FOLDER}/services
 KillSignal=SIGKILL
 Environment=UNPRIVILEGED_PATH=${HOMEBREW_FOLDER}

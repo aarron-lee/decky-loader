@@ -29,7 +29,7 @@ export interface VerInfo {
 }
 
 export async function callUpdaterMethod(methodName: string, args = {}) {
-  const response = await fetch(`http://127.0.0.1:1337/updater/${methodName}`, {
+  const response = await fetch(`http://127.0.0.1:1338/updater/${methodName}`, {
     method: 'POST',
     credentials: 'include',
     headers: {

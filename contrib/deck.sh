@@ -46,8 +46,8 @@ setfolder() {
             CLONEFOLDER="${DEFAULT}"
         fi
     elif [[ "$ACTION" == "install" ]]; then
-        printf "Enter the directory in /home/deck/homebrew to ${ACTION} pluginloader to.\n"
-        printf "The ${ACTION} directory would be: /home/deck/homebrew/${DEFAULT}/pluginloader\n"
+        printf "Enter the directory in /home/deck/.unofficial_homebrew to ${ACTION} UnofficialPluginLoader to.\n"
+        printf "The ${ACTION} directory would be: /home/deck/.unofficial_homebrew/${DEFAULT}/UnofficialPluginLoader\n"
         printf "It is highly recommended that you use the default folder path seen above, just press enter at the next prompt.\n"
         read -p "Enter your ${ACTION} directory: " INSTALLFOLDER
         if ! [[ "$INSTALLFOLDER" =~ ^[[:alnum:]]+$ ]]; then
@@ -176,7 +176,7 @@ if ! [[ $count -gt 9 ]] ; then
     printf "Installing Steam Deck Plugin Loader contributor/developer (for Steam Deck)...\n"
 
     printf "THIS SCRIPT ASSUMES YOU ARE RUNNING IT ON A PC, NOT THE DECK!
-    Not planning to contribute to or develop for PluginLoader?
+    Not planning to contribute to or develop for UnofficialPluginLoader?
     If so, you should not be using this script.\n
     If you have a release/nightly installed this script will disable it.\n"
 
@@ -200,7 +200,7 @@ if [[ "$INSTALLFOLDER" == "" ]]; then
 fi
 
 CLONEDIR="$HOME/$CLONEFOLDER"
-INSTALLDIR="/home/deck/homebrew/$INSTALLFOLDER"
+INSTALLDIR="/home/deck/.unofficial_homebrew/$INSTALLFOLDER"
 
 ## Input ip address, port, password and sshkey
 
@@ -255,11 +255,11 @@ printf "Cloning git repositories.\n"
 mkdir -p ${CLONEDIR} &> '/dev/null'
 
 ### remove folders just in case
-# rm -r ${CLONEDIR}/pluginloader
+# rm -r ${CLONEDIR}/UnofficialPluginLoader
 # rm -r ${CLONEDIR}/pluginlibrary
 # rm -r ${CLONEDIR}/plugintemplate
 
-clonefromto "https://github.com/SteamDeckHomebrew/PluginLoader" ${CLONEDIR}/pluginloader "$LOADERBRANCH"
+clonefromto "https://github.com/SteamDeckHomebrew/UnofficialPluginLoader" ${CLONEDIR}/UnofficialPluginLoader "$LOADERBRANCH"
 
 clonefromto "https://github.com/SteamDeckHomebrew/decky-frontend-lib" ${CLONEDIR}/pluginlibrary "$LIBRARYBRANCH"
 
@@ -269,9 +269,9 @@ clonefromto "https://github.com/SteamDeckHomebrew/decky-plugin-template" ${CLONE
 
 printf "\nInstalling python dependencies.\n"
 
-rsync -azp --rsh="ssh -p $SSHPORT $IDENINVOC" ${CLONEDIR}/pluginloader/requirements.txt deck@${DECKIP}:${INSTALLDIR}/pluginloader/requirements.txt &> '/dev/null'
+rsync -azp --rsh="ssh -p $SSHPORT $IDENINVOC" ${CLONEDIR}/UnofficialPluginLoader/requirements.txt deck@${DECKIP}:${INSTALLDIR}/UnofficialPluginLoader/requirements.txt &> '/dev/null'
 
-ssh deck@${DECKIP} -p ${SSHPORT} ${IDENINVOC} "python -m ensurepip && python -m pip install --upgrade pip && python -m pip install --upgrade setuptools && python -m pip install -r $INSTALLDIR/pluginloader/requirements.txt" &> '/dev/null'
+ssh deck@${DECKIP} -p ${SSHPORT} ${IDENINVOC} "python -m ensurepip && python -m pip install --upgrade pip && python -m pip install --upgrade setuptools && python -m pip install -r $INSTALLDIR/UnofficialPluginLoader/requirements.txt" &> '/dev/null'
 
 ## Transpile and bundle typescript
 
@@ -292,7 +292,7 @@ printf "Transpiling and bundling typescript.\n"
 
 pnpmtransbundle ${CLONEDIR}/pluginlibrary/ "library"
 
-pnpmtransbundle ${CLONEDIR}/pluginloader/frontend "frontend"
+pnpmtransbundle ${CLONEDIR}/UnofficialPluginLoader/frontend "frontend"
 
 pnpmtransbundle ${CLONEDIR}/plugintemplate "template"
 
@@ -300,13 +300,13 @@ pnpmtransbundle ${CLONEDIR}/plugintemplate "template"
 
 printf "Copying relevant files to install directory\n\n"
 
-ssh deck@${DECKIP} -p ${SSHPORT} ${IDENINVOC} "mkdir -p $INSTALLDIR/pluginloader && mkdir -p $INSTALLDIR/plugins" &> '/dev/null'
+ssh deck@${DECKIP} -p ${SSHPORT} ${IDENINVOC} "mkdir -p $INSTALLDIR/UnofficialPluginLoader && mkdir -p $INSTALLDIR/plugins" &> '/dev/null'
 
-### copy files for PluginLoader
-rsync -avzp --rsh="ssh -p $SSHPORT $IDENINVOC" --exclude='.git/' --exclude='.github/' --exclude='.vscode/' --exclude='frontend/' --exclude='dist/' --exclude='contrib/' --exclude='*.log' --exclude='requirements.txt' --exclude='backend/__pycache__/' --exclude='.gitignore' --delete ${CLONEDIR}/pluginloader/* deck@${DECKIP}:${INSTALLDIR}/pluginloader &> '/dev/null'
+### copy files for UnofficialPluginLoader
+rsync -avzp --rsh="ssh -p $SSHPORT $IDENINVOC" --exclude='.git/' --exclude='.github/' --exclude='.vscode/' --exclude='frontend/' --exclude='dist/' --exclude='contrib/' --exclude='*.log' --exclude='requirements.txt' --exclude='backend/__pycache__/' --exclude='.gitignore' --delete ${CLONEDIR}/UnofficialPluginLoader/* deck@${DECKIP}:${INSTALLDIR}/UnofficialPluginLoader &> '/dev/null'
 
 if ! [[ $? -eq 0 ]]; then
-    printf "Error occurred when copying $CLONEDIR/pluginloader/ to $INSTALLDIR/pluginloader/\n"
+    printf "Error occurred when copying $CLONEDIR/UnofficialPluginLoader/ to $INSTALLDIR/UnofficialPluginLoader/\n"
     printf "Check that your Steam Deck is active, ssh is enabled and running and is accepting connections.\n"
     exit 1
 fi
@@ -321,15 +321,15 @@ fi
 ## TODO: direct contributors to wiki for this info?
 
 printf "Run these commands to deploy your local changes to the deck:\n"
-printf "'rsync -avzp --mkpath --rsh=""\"ssh -p $SSHPORT $IDENINVOC\""" --exclude='.git/' --exclude='.github/' --exclude='.vscode/' --exclude='frontend/' --exclude='dist/' --exclude='contrib/' --exclude='*.log' --exclude='requirements.txt' --exclude='backend/__pycache__/' --exclude='.gitignore' --delete $CLONEDIR/pluginloader/* deck@$DECKIP:$INSTALLDIR/pluginloader/'\n"
+printf "'rsync -avzp --mkpath --rsh=""\"ssh -p $SSHPORT $IDENINVOC\""" --exclude='.git/' --exclude='.github/' --exclude='.vscode/' --exclude='frontend/' --exclude='dist/' --exclude='contrib/' --exclude='*.log' --exclude='requirements.txt' --exclude='backend/__pycache__/' --exclude='.gitignore' --delete $CLONEDIR/UnofficialPluginLoader/* deck@$DECKIP:$INSTALLDIR/UnofficialPluginLoader/'\n"
 printf "'rsync -avzp --mkpath --rsh=""\"ssh -p $SSHPORT $IDENINVOC\""" --exclude='.git/' --exclude='.github/' --exclude='.vscode/' --exclude='node_modules/' --exclude='src/' --exclude='*.log' --exclude='.gitignore' --exclude='package-lock.json' --delete $CLONEDIR/pluginname deck@$DECKIP:$INSTALLDIR/plugins'\n\n"
 
-printf "Run in console or in a script this command to run your development version:\n'ssh deck@$DECKIP -p $SSHPORT $IDENINVOC 'export PLUGIN_PATH=$INSTALLDIR/plugins; export CHOWN_PLUGIN_PATH=0; echo 'steam' | sudo -SE python3 $INSTALLDIR/pluginloader/backend/main.py'\n"
+printf "Run in console or in a script this command to run your development version:\n'ssh deck@$DECKIP -p $SSHPORT $IDENINVOC 'export PLUGIN_PATH=$INSTALLDIR/plugins; export CHOWN_PLUGIN_PATH=0; echo 'steam' | sudo -SE python3 $INSTALLDIR/UnofficialPluginLoader/backend/main.py'\n"
 
 ## Disable Releases versions if they exist
 
-### ssh into deck and disable PluginLoader release/nightly service
-printf "Connecting via ssh to disable any PluginLoader release versions.\n"
+### ssh into deck and disable UnofficialPluginLoader release/nightly service
+printf "Connecting via ssh to disable any UnofficialPluginLoader release versions.\n"
 printf "Script will exit after this. All done!\n"
 
 ssh deck@${DECKIP} -p ${SSHPORT} ${IDENINVOC} "printf $PASSWORD | sudo -S systemctl disable --now plugin_loader; echo $?" &> '/dev/null'

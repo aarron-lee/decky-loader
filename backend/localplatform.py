@@ -29,7 +29,7 @@ def get_server_host() -> str:
     return os.getenv("SERVER_HOST", "127.0.0.1")
 
 def get_server_port() -> int:
-    return int(os.getenv("SERVER_PORT", "1337"))
+    return int(os.getenv("SERVER_PORT", "1338"))
 
 def get_live_reload() -> bool:
     return os.getenv("LIVE_RELOAD", "1") == "1"

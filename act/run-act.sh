@@ -39,7 +39,7 @@ cd act/artifacts
 
 if [[ -d "1" ]]; then
     cd "1/artifact"
-    cp "PluginLoader.gz__" "PluginLoader.gz"
-    gzip -d "PluginLoader.gz"
-    chmod +x PluginLoader
+    cp "UnofficialPluginLoader.gz__" "UnofficialPluginLoader.gz"
+    gzip -d "UnofficialPluginLoader.gz"
+    chmod +x UnofficialPluginLoader
 fi

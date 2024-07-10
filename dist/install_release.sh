@@ -5,7 +5,7 @@
 echo "Installing Steam Deck Plugin Loader release..."
 
 USER_DIR="$(getent passwd $SUDO_USER | cut -d: -f6)"
-HOMEBREW_FOLDER="${USER_DIR}/homebrew"
+HOMEBREW_FOLDER="${USER_DIR}/.unofficial_homebrew"
 
 # Create folder structure
 rm -rf "${HOMEBREW_FOLDER}/services"
@@ -16,11 +16,11 @@ touch "${USER_DIR}/.steam/steam/.cef-enable-remote-debugging"
 # Download latest release and install it
 RELEASE=$(curl -s 'https://api.github.com/repos/SteamDeckHomebrew/decky-loader/releases' | jq -r "first(.[] | select(.prerelease == "false"))")
 VERSION=$(jq -r '.tag_name' <<< ${RELEASE} )
-DOWNLOADURL=$(jq -r '.assets[].browser_download_url | select(endswith("PluginLoader"))' <<< ${RELEASE})
+DOWNLOADURL=$(jq -r '.assets[].browser_download_url | select(endswith("UnofficialPluginLoader"))' <<< ${RELEASE})
 
 printf "Installing version %s...\n" "${VERSION}"
-curl -L $DOWNLOADURL --output ${HOMEBREW_FOLDER}/services/PluginLoader
-chmod +x ${HOMEBREW_FOLDER}/services/PluginLoader
+curl -L $DOWNLOADURL --output ${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
+chmod +x ${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
 echo $VERSION > ${HOMEBREW_FOLDER}/services/.loader.version
 
 systemctl --user stop plugin_loader 2> /dev/null
@@ -40,7 +40,7 @@ Wants=network-online.target
 Type=simple
 User=root
 Restart=always
-ExecStart=${HOMEBREW_FOLDER}/services/PluginLoader
+ExecStart=${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
 WorkingDirectory=${HOMEBREW_FOLDER}/services
 KillSignal=SIGKILL
 Environment=PLUGIN_PATH=${HOMEBREW_FOLDER}/plugins

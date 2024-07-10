@@ -5,7 +5,7 @@
 echo "Uninstalling Steam Deck Plugin Loader..."
 
 USER_DIR="$(getent passwd $SUDO_USER | cut -d: -f6)"
-HOMEBREW_FOLDER="${USER_DIR}/homebrew"
+HOMEBREW_FOLDER="${USER_DIR}/.unofficial_homebrew"
 
 # Disable and remove services
 sudo systemctl disable --now plugin_loader.service > /dev/null
@@ -16,5 +16,5 @@ sudo rm -f "/etc/systemd/system/plugin_loader.service"
 rm -rf "/tmp/plugin_loader"
 
 # Cleanup services folder
-sudo rm "${HOMEBREW_FOLDER}/services/PluginLoader"
+sudo rm "${HOMEBREW_FOLDER}/services/UnofficialPluginLoader"
 

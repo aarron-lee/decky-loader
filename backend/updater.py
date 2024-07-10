@@ -142,7 +142,7 @@ class Updater:
         logger.debug("Starting update.")
         version = self.remoteVer["tag_name"]
         download_url = None
-        download_filename = "PluginLoader" if ON_LINUX else "PluginLoader.exe"
+        download_filename = "UnofficialPluginLoader" if ON_LINUX else "UnofficialPluginLoader.exe"
         download_temp_filename = download_filename + ".new"
 
         for x in self.remoteVer["assets"]:

@@ -51,9 +51,9 @@ function PluginInteractables(props: { entry: ReorderableEntry<PluginData> }) {
           onSelected={() =>
             window.DeckyPluginLoader.uninstallPlugin(
               pluginName,
-              t('PluginLoader.plugin_uninstall.title', { name: pluginName }),
-              t('PluginLoader.plugin_uninstall.button'),
-              t('PluginLoader.plugin_uninstall.desc', { name: pluginName }),
+              t('UnofficialPluginLoader.plugin_uninstall.title', { name: pluginName }),
+              t('UnofficialPluginLoader.plugin_uninstall.button'),
+              t('UnofficialPluginLoader.plugin_uninstall.desc', { name: pluginName }),
             )
           }
         >

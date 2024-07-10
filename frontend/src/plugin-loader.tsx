@@ -38,7 +38,7 @@ const SettingsPage = lazy(() => import('./components/settings'));
 
 const FilePicker = lazy(() => import('./components/modals/filepicker'));
 
-class PluginLoader extends Logger {
+class UnofficialPluginLoader extends Logger {
   private plugins: Plugin[] = [];
   private tabsHook: TabsHook | OldTabsHook = document.title == 'SP' ? new OldTabsHook() : new TabsHook();
   // private windowHook: WindowHook = new WindowHook();
@@ -53,7 +53,7 @@ class PluginLoader extends Logger {
   private focusWorkaroundPatch?: Patch;
 
   constructor() {
-    super(PluginLoader.name);
+    super(UnofficialPluginLoader.name);
     this.tabsHook.init();
     this.log('Initialized');
 
@@ -271,7 +271,7 @@ class PluginLoader extends Logger {
   }
 
   private async importReactPlugin(name: string, version?: string) {
-    let res = await fetch(`http://127.0.0.1:1337/plugins/${name}/frontend_bundle`, {
+    let res = await fetch(`http://127.0.0.1:1338/plugins/${name}/frontend_bundle`, {
       credentials: 'include',
       headers: {
         Authentication: window.deckyAuthToken,
@@ -336,7 +336,7 @@ class PluginLoader extends Logger {
   }
 
   private async importLegacyPlugin(name: string) {
-    const url = `http://127.0.0.1:1337/plugins/load_main/${name}`;
+    const url = `http://127.0.0.1:1338/plugins/load_main/${name}`;
     this.plugins.push({
       name: name,
       icon: <FaPlug />,
@@ -345,7 +345,7 @@ class PluginLoader extends Logger {
   }
 
   async callServerMethod(methodName: string, args = {}) {
-    const response = await fetch(`http://127.0.0.1:1337/methods/${methodName}`, {
+    const response = await fetch(`http://127.0.0.1:1338/methods/${methodName}`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -394,7 +394,7 @@ class PluginLoader extends Logger {
       callServerMethod: this.callServerMethod,
       openFilePicker: this.openFilePicker,
       async callPluginMethod(methodName: string, args = {}) {
-        const response = await fetch(`http://127.0.0.1:1337/plugins/${pluginName}/methods/${methodName}`, {
+        const response = await fetch(`http://127.0.0.1:1338/plugins/${pluginName}/methods/${methodName}`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -437,4 +437,4 @@ class PluginLoader extends Logger {
   }
 }
 
-export default PluginLoader;
+export default UnofficialPluginLoader;

@@ -2,12 +2,12 @@ import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
-import PluginLoader from './plugin-loader';
+import UnofficialPluginLoader from './plugin-loader';
 import { DeckyUpdater } from './updater';
 
 declare global {
   interface Window {
-    DeckyPluginLoader: PluginLoader;
+    DeckyPluginLoader: UnofficialPluginLoader;
     DeckyUpdater?: DeckyUpdater;
     importDeckyPlugin: Function;
     syncDeckyPlugins: Function;
@@ -19,7 +19,7 @@ declare global {
 }
 
 (async () => {
-  window.deckyAuthToken = await fetch('http://127.0.0.1:1337/auth/token').then((r) => r.text());
+  window.deckyAuthToken = await fetch('http://127.0.0.1:1338/auth/token').then((r) => r.text());
 
   i18n
     .use(Backend)
@@ -38,7 +38,7 @@ declare global {
       },
       returnEmptyString: false,
       backend: {
-        loadPath: 'http://127.0.0.1:1337/locales/{{lng}}.json',
+        loadPath: 'http://127.0.0.1:1338/locales/{{lng}}.json',
         customHeaders: {
           Authentication: window.deckyAuthToken,
         },
@@ -50,7 +50,7 @@ declare global {
 
   window.DeckyPluginLoader?.dismountAll();
   window.DeckyPluginLoader?.deinit();
-  window.DeckyPluginLoader = new PluginLoader();
+  window.DeckyPluginLoader = new UnofficialPluginLoader();
   window.DeckyPluginLoader.init();
   window.importDeckyPlugin = function (name: string, version: string) {
     window.DeckyPluginLoader?.importPlugin(name, version);
@@ -58,7 +58,7 @@ declare global {
 
   window.syncDeckyPlugins = async function () {
     const plugins = await (
-      await fetch('http://127.0.0.1:1337/plugins', {
+      await fetch('http://127.0.0.1:1338/plugins', {
         credentials: 'include',
         headers: { Authentication: window.deckyAuthToken },
       })

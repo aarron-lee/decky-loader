@@ -84,7 +84,7 @@ if ! [[ $count -gt 4 ]] ; then
     printf "Installing Steam Deck Plugin Loader contributor/developer (no Steam Deck)..."
 
     printf "\nTHIS SCRIPT ASSUMES YOU ARE RUNNING IT ON A PC, NOT THE DECK!
-    Not planning to contribute to or develop for PluginLoader?
+    Not planning to contribute to or develop for UnofficialPluginLoader?
     Then you should not be using this script.\n"
 
     printf "\nThis script requires you to have nodejs installed. (If nodejs doesn't bundle npm on your OS/distro, then npm is required as well).\n"
@@ -115,11 +115,11 @@ printf "Cloning git repositories.\n"
 mkdir -p ${CLONEDIR} &> '/dev/null'
 
 ### remove folders just in case
-# rm -r ${CLONEDIR}/pluginloader
+# rm -r ${CLONEDIR}/UnofficialPluginLoader
 # rm -r ${CLONEDIR}/pluginlibrary
 # rm -r ${CLONEDIR}/plugintemplate
 
-clonefromto "https://github.com/SteamDeckHomebrew/PluginLoader" ${CLONEDIR}/pluginloader "$LOADERBRANCH"
+clonefromto "https://github.com/SteamDeckHomebrew/UnofficialPluginLoader" ${CLONEDIR}/UnofficialPluginLoader "$LOADERBRANCH"
 
 clonefromto "https://github.com/SteamDeckHomebrew/decky-frontend-lib" ${CLONEDIR}/pluginlibrary "$LIBRARYBRANCH"
 
@@ -127,7 +127,7 @@ clonefromto "https://github.com/SteamDeckHomebrew/decky-plugin-template" ${CLONE
 
 ## install python dependencies (maybe use venv?)
 
-python -m pip install -r ${CLONEDIR}/pluginloader/requirements.txt &> '/dev/null'
+python -m pip install -r ${CLONEDIR}/UnofficialPluginLoader/requirements.txt &> '/dev/null'
 
 ## Transpile and bundle typescript
 
@@ -157,12 +157,12 @@ printf "Transpiling and bundling typescript.\n"
 
 pnpmtransbundle ${CLONEDIR}/pluginlibrary/ "library"
 
-pnpmtransbundle ${CLONEDIR}/pluginloader/frontend "frontend"
+pnpmtransbundle ${CLONEDIR}/UnofficialPluginLoader/frontend "frontend"
 
 pnpmtransbundle ${CLONEDIR}/plugintemplate "template"
 
-printf "Plugin Loader is located at '${CLONEDIR}/pluginloader/'.\n"
+printf "Plugin Loader is located at '${CLONEDIR}/UnofficialPluginLoader/'.\n"
 
-printf "Run in console or in a script these commands to run your development version:\n'export PLUGIN_PATH=${CLONEDIR}/plugins; export CHOWN_PLUGIN_PATH=0; sudo -E python3 ${CLONEDIR}/pluginloader/backend/main.py'\n"
+printf "Run in console or in a script these commands to run your development version:\n'export PLUGIN_PATH=${CLONEDIR}/plugins; export CHOWN_PLUGIN_PATH=0; sudo -E python3 ${CLONEDIR}/UnofficialPluginLoader/backend/main.py'\n"
 
 printf "All done!\n"

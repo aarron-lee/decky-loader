@@ -10,7 +10,7 @@ on:
       release:
         type: choice
         description: Release the asset
-        default: 'none'
+        default: "none"
         options:
           - none
           - prerelease
@@ -18,7 +18,7 @@ on:
       bump:
         type: choice
         description: Semver to bump
-        default: 'none'
+        default: "none"
         options:
           - none
           - patch
@@ -30,102 +30,82 @@ permissions:
 
 jobs:
   build:
-    name: Build PluginLoader
+    name: Build UnofficialPluginLoader
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Print input
-      run : |
-        echo "release: ${{ github.event.inputs.release }}\n"
-        echo "bump: ${{ github.event.inputs.bump }}\n"
+      - name: Print input
+        run: |
+          echo "release: ${{ github.event.inputs.release }}\n"
+          echo "bump: ${{ github.event.inputs.bump }}\n"
 
-    - name: Checkout 🧰
-      uses: actions/checkout@v3
+      - name: Checkout 🧰
+        uses: actions/checkout@v3
 
-    - name: Set up NodeJS 18 💎
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-      
-    - name: Set up Python 3.10.2 🐍
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10.2"
-        
-    - name: Install Python dependencies ⬇️
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller==5.5
-        [ -f requirements.txt ] && pip install -r requirements.txt
+      - name: Set up NodeJS 18 💎
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install JS dependencies ⬇️
-      working-directory: ./frontend
-      run: |
-        npm i -g pnpm
-        pnpm i --frozen-lockfile
+      - name: Set up Python 3.10.2 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10.2"
 
-    - name: Build JS Frontend 🛠️
-      working-directory: ./frontend
-      run: pnpm run build
+      - name: Install Python dependencies ⬇️
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller==5.5
+          [ -f requirements.txt ] && pip install -r requirements.txt
 
-    - name: Build Python Backend 🛠️
-      run: pyinstaller --noconfirm --onefile --name "PluginLoader" --add-data ./backend/static:/static --add-data ./backend/locales:/locales --add-data ./backend/legacy:/legacy --add-data ./plugin:/plugin ./backend/*.py
-        
-    - name: Upload package artifact ⬆️
-      if: ${{ !env.ACT }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: PluginLoader
-        path: ./dist/PluginLoader
+      - name: Build Python Backend 🛠️
+        run: pyinstaller --noconfirm --onefile --name "UnofficialPluginLoader" --add-data ./backend/static:/static --add-data ./backend/locales:/locales --add-data ./backend/legacy:/legacy --add-data ./plugin:/plugin ./backend/*.py
 
-    - name: Download package artifact locally
-      if: ${{ env.ACT }}
-      uses: actions/upload-artifact@v3
-      with:
-        path: ./dist/PluginLoader
+      - name: Upload package artifact ⬆️
+        if: ${{ !env.ACT }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: UnofficialPluginLoader
+          path: ./dist/UnofficialPluginLoader
+
+      - name: Download package artifact locally
+        if: ${{ env.ACT }}
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./dist/UnofficialPluginLoader
 
   build-win:
-    name: Build PluginLoader for Win
+    name: Build UnofficialPluginLoader for Win
     runs-on: windows-2022
 
     steps:
-    - name: Checkout 🧰
-      uses: actions/checkout@v3
+      - name: Checkout 🧰
+        uses: actions/checkout@v3
 
-    - name: Set up NodeJS 18 💎
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-      
-    - name: Set up Python 3.10.2 🐍
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10.2"
-        
-    - name: Install Python dependencies ⬇️
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller==5.5
-        pip install -r requirements.txt
+      - name: Set up NodeJS 18 💎
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install JS dependencies ⬇️
-      working-directory: ./frontend
-      run: |
-        npm i -g pnpm
-        pnpm i --frozen-lockfile
+      - name: Set up Python 3.10.2 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10.2"
 
-    - name: Build JS Frontend 🛠️
-      working-directory: ./frontend
-      run: pnpm run build
+      - name: Install Python dependencies ⬇️
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller==5.5
+          pip install -r requirements.txt
 
-    - name: Build Python Backend 🛠️
-      run: pyinstaller --noconfirm --onefile --name "PluginLoader" --add-data "./backend/static;/static" --add-data "./backend/locales;/locales" --add-data "./backend/legacy;/legacy" --add-data "./plugin;/plugin" ./backend/main.py
-        
-    - name: Upload package artifact ⬆️
-      uses: actions/upload-artifact@v3
-      with:
-        name: PluginLoader Win
-        path: ./dist/PluginLoader.exe
+      - name: Build Python Backend 🛠️
+        run: pyinstaller --noconfirm --onefile --name "UnofficialPluginLoader" --add-data "./backend/static;/static" --add-data "./backend/locales;/locales" --add-data "./backend/legacy;/legacy" --add-data "./plugin;/plugin" ./backend/main.py
+
+      - name: Upload package artifact ⬆️
+        uses: actions/upload-artifact@v3
+        with:
+          name: UnofficialPluginLoader Win
+          path: ./dist/UnofficialPluginLoader.exe
 
   release:
     name: Release stable version of the package
@@ -134,78 +114,78 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout 🧰
-      uses: actions/checkout@v3
+      - name: Checkout 🧰
+        uses: actions/checkout@v3
 
-    - name: Install semver-tool asdf
-      uses: asdf-vm/actions/install@v1
-      with:
-        tool_versions: |
-          semver 3.3.0
+      - name: Install semver-tool asdf
+        uses: asdf-vm/actions/install@v1
+        with:
+          tool_versions: |
+            semver 3.3.0
 
-    - name: Fetch package artifact ⬇️
-      uses: actions/download-artifact@v3
-      if: ${{ !env.ACT }}
-      with:
-        name: PluginLoader
-        path: dist
+      - name: Fetch package artifact ⬇️
+        uses: actions/download-artifact@v3
+        if: ${{ !env.ACT }}
+        with:
+          name: UnofficialPluginLoader
+          path: dist
 
-    - name: Get latest release
-      uses: rez0n/actions-github-release@main
-      id: latest_release
-      env:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: "SteamDeckHomebrew/decky-loader"
-        type: "nodraft"
+      - name: Get latest release
+        uses: rez0n/actions-github-release@main
+        id: latest_release
+        env:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: "SteamDeckHomebrew/decky-loader"
+          type: "nodraft"
 
-    - name: Prepare tag ⚙️
-      id: ready_tag
-      run: |
-        export VERSION=${{ steps.latest_release.outputs.release }}
-        echo "VERS: $VERSION"
-        OUT="notsemver"
-        if [[ "$VERSION" =~ "-pre" ]]; then
-          printf "is prerelease, bumping to release\n"
-          OUT=$(semver bump release "$VERSION")
-          printf "OUT: ${OUT}\n"\
-          printf "bumping by selected type.\n"
-          if [[ "${{github.event.inputs.bump}}" != "none" ]]; then
-            OUT=$(semver bump ${{github.event.inputs.bump}} "$OUT")
-            printf "OUT: ${OUT}\n"
-          else
-            printf "no type selected, not bumping for release.\n"
+      - name: Prepare tag ⚙️
+        id: ready_tag
+        run: |
+          export VERSION=${{ steps.latest_release.outputs.release }}
+          echo "VERS: $VERSION"
+          OUT="notsemver"
+          if [[ "$VERSION" =~ "-pre" ]]; then
+            printf "is prerelease, bumping to release\n"
+            OUT=$(semver bump release "$VERSION")
+            printf "OUT: ${OUT}\n"\
+            printf "bumping by selected type.\n"
+            if [[ "${{github.event.inputs.bump}}" != "none" ]]; then
+              OUT=$(semver bump ${{github.event.inputs.bump}} "$OUT")
+              printf "OUT: ${OUT}\n"
+            else
+              printf "no type selected, not bumping for release.\n"
+            fi
+          elif [[ ! "$VERSION" =~ "-pre" ]]; then
+            printf "previous tag is a release, bumping by selected type.\n"
+            if [[ "${{github.event.inputs.bump}}" != "none" ]]; then
+              OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
+              printf "OUT: ${OUT}\n"
+            else
+              printf "previous tag is a release, but no bump selected. Defaulting to a patch bump.\n"
+              OUT=$(semver bump patch "$VERSION")
+              printf "OUT: ${OUT}\n"
+            fi
           fi
-        elif [[ ! "$VERSION" =~ "-pre" ]]; then
-          printf "previous tag is a release, bumping by selected type.\n"
-          if [[ "${{github.event.inputs.bump}}" != "none" ]]; then
-            OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
-            printf "OUT: ${OUT}\n"
-          else
-            printf "previous tag is a release, but no bump selected. Defaulting to a patch bump.\n"
-            OUT=$(semver bump patch "$VERSION")
-            printf "OUT: ${OUT}\n"
-          fi
-        fi
-        echo "vOUT: v$OUT"
-        echo tag_name=v$OUT >> $GITHUB_OUTPUT
+          echo "vOUT: v$OUT"
+          echo tag_name=v$OUT >> $GITHUB_OUTPUT
 
-    - name: Push tag 📤
-      uses: rickstaa/action-create-tag@v1.3.2
-      if: ${{ steps.ready_tag.outputs.tag_name && github.event_name == 'workflow_dispatch' && !env.ACT }}
-      with:
-        tag: ${{ steps.ready_tag.outputs.tag_name }}
-        message: Pre-release ${{ steps.ready_tag.outputs.tag_name }}
+      - name: Push tag 📤
+        uses: rickstaa/action-create-tag@v1.3.2
+        if: ${{ steps.ready_tag.outputs.tag_name && github.event_name == 'workflow_dispatch' && !env.ACT }}
+        with:
+          tag: ${{ steps.ready_tag.outputs.tag_name }}
+          message: Pre-release ${{ steps.ready_tag.outputs.tag_name }}
 
-    - name: Release 📦
-      uses: softprops/action-gh-release@v1
-      if: ${{ github.event_name == 'workflow_dispatch' && !env.ACT  }}
-      with:
-        name: Release ${{ steps.ready_tag.outputs.tag_name }}
-        tag_name: ${{ steps.ready_tag.outputs.tag_name }}
-        files: ./dist/PluginLoader
-        prerelease: false
-        generate_release_notes: true
-  
+      - name: Release 📦
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'workflow_dispatch' && !env.ACT  }}
+        with:
+          name: Release ${{ steps.ready_tag.outputs.tag_name }}
+          tag_name: ${{ steps.ready_tag.outputs.tag_name }}
+          files: ./dist/UnofficialPluginLoader
+          prerelease: false
+          generate_release_notes: true
+
   prerelease:
     name: Release the pre-release version of the package
     if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'prerelease' }}
@@ -213,82 +193,82 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout 🧰
-      uses: actions/checkout@v3
+      - name: Checkout 🧰
+        uses: actions/checkout@v3
 
-    - name: Install semver-tool asdf
-      uses: asdf-vm/actions/install@v1
-      with:
-        tool_versions: |
-          semver 3.3.0
+      - name: Install semver-tool asdf
+        uses: asdf-vm/actions/install@v1
+        with:
+          tool_versions: |
+            semver 3.3.0
 
-    - name: Fetch package artifact ⬇️
-      uses: actions/download-artifact@v3
-      if: ${{ !env.ACT }}
-      with:
-        name: PluginLoader
-        path: dist
+      - name: Fetch package artifact ⬇️
+        uses: actions/download-artifact@v3
+        if: ${{ !env.ACT }}
+        with:
+          name: UnofficialPluginLoader
+          path: dist
 
-    - name: Get latest release
-      uses: rez0n/actions-github-release@main
-      id: latest_release
-      env:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: "SteamDeckHomebrew/decky-loader"
-        type: "nodraft"
+      - name: Get latest release
+        uses: rez0n/actions-github-release@main
+        id: latest_release
+        env:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: "SteamDeckHomebrew/decky-loader"
+          type: "nodraft"
 
-    - name: Prepare tag ⚙️
-      id: ready_tag
-      run: |
-        export VERSION=${{ steps.latest_release.outputs.release }}
-        echo "VERS: $VERSION"
-        OUT=""
-        if [[ ! "$VERSION" =~ "-pre" ]]; then
-          printf "pre-release from release, bumping by selected type and prerel\n"
-          if [[ ! ${{ github.event.inputs.bump }} == "none" ]]; then
-            OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
-            printf "OUT: ${OUT}\n"
-          else
-            printf "type not selected, defaulting to patch\n"
-            OUT=$(semver bump patch "$VERSION")
-            printf "OUT: ${OUT}\n"
-          fi
-          OUT="$OUT-pre"
-          OUT=$(semver bump prerel "$OUT")
-          printf "OUT: ${OUT}\n"
-        elif [[ "$VERSION" =~ "-pre" ]]; then
-          printf "pre-release to pre-release, bumping by selected type and or prerel version\n"
-          if [[ ! ${{ github.event.inputs.bump }} == "none" ]]; then
-            OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
-            printf "OUT: ${OUT}\n"
+      - name: Prepare tag ⚙️
+        id: ready_tag
+        run: |
+          export VERSION=${{ steps.latest_release.outputs.release }}
+          echo "VERS: $VERSION"
+          OUT=""
+          if [[ ! "$VERSION" =~ "-pre" ]]; then
+            printf "pre-release from release, bumping by selected type and prerel\n"
+            if [[ ! ${{ github.event.inputs.bump }} == "none" ]]; then
+              OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
+              printf "OUT: ${OUT}\n"
+            else
+              printf "type not selected, defaulting to patch\n"
+              OUT=$(semver bump patch "$VERSION")
+              printf "OUT: ${OUT}\n"
+            fi
             OUT="$OUT-pre"
-            printf "OUT: ${OUT}\n"
-            printf "bumping prerel\n"
             OUT=$(semver bump prerel "$OUT")
             printf "OUT: ${OUT}\n"
-          else
-            printf "type not selected, defaulting to new pre-release only\n"
-            printf "bumping prerel\n"
-            OUT=$(semver bump prerel "$VERSION")
-            printf "OUT: ${OUT}\n"
+          elif [[ "$VERSION" =~ "-pre" ]]; then
+            printf "pre-release to pre-release, bumping by selected type and or prerel version\n"
+            if [[ ! ${{ github.event.inputs.bump }} == "none" ]]; then
+              OUT=$(semver bump ${{github.event.inputs.bump}} "$VERSION")
+              printf "OUT: ${OUT}\n"
+              OUT="$OUT-pre"
+              printf "OUT: ${OUT}\n"
+              printf "bumping prerel\n"
+              OUT=$(semver bump prerel "$OUT")
+              printf "OUT: ${OUT}\n"
+            else
+              printf "type not selected, defaulting to new pre-release only\n"
+              printf "bumping prerel\n"
+              OUT=$(semver bump prerel "$VERSION")
+              printf "OUT: ${OUT}\n"
+            fi
           fi
-        fi
-        printf "vOUT: v${OUT}\n"
-        echo tag_name=v$OUT >> $GITHUB_OUTPUT
+          printf "vOUT: v${OUT}\n"
+          echo tag_name=v$OUT >> $GITHUB_OUTPUT
 
-    - name: Push tag 📤
-      uses: rickstaa/action-create-tag@v1.3.2
-      if: ${{ steps.ready_tag.outputs.tag_name && github.event_name == 'workflow_dispatch' && !env.ACT }}
-      with:
-        tag: ${{ steps.ready_tag.outputs.tag_name }}
-        message: Pre-release ${{ steps.ready_tag.outputs.tag_name }}
+      - name: Push tag 📤
+        uses: rickstaa/action-create-tag@v1.3.2
+        if: ${{ steps.ready_tag.outputs.tag_name && github.event_name == 'workflow_dispatch' && !env.ACT }}
+        with:
+          tag: ${{ steps.ready_tag.outputs.tag_name }}
+          message: Pre-release ${{ steps.ready_tag.outputs.tag_name }}
 
-    - name: Release 📦
-      uses: softprops/action-gh-release@v1
-      if: ${{ github.event_name == 'workflow_dispatch' && !env.ACT  }}
-      with:
-        name: Prerelease ${{ steps.ready_tag.outputs.tag_name }}
-        tag_name: ${{ steps.ready_tag.outputs.tag_name }}
-        files: ./dist/PluginLoader
-        prerelease: true
-        generate_release_notes: true
+      - name: Release 📦
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event_name == 'workflow_dispatch' && !env.ACT  }}
+        with:
+          name: Prerelease ${{ steps.ready_tag.outputs.tag_name }}
+          tag_name: ${{ steps.ready_tag.outputs.tag_name }}
+          files: ./dist/UnofficialPluginLoader
+          prerelease: true
+          generate_release_notes: true

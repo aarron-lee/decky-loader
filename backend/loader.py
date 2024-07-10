@@ -184,7 +184,7 @@ class Loader:
     """
     The following methods are used to load legacy plugins, which are considered deprecated.
     I made the choice to re-add them so that the first iteration/version of the react loader
-    can work as a drop-in replacement for the stable branch of the PluginLoader, so that we
+    can work as a drop-in replacement for the stable branch of the UnofficialPluginLoader, so that we
     can introduce it more smoothly and give people the chance to sample the new features even
     without plugin support. They will be removed once legacy plugins are no longer relevant.
     """
@@ -195,7 +195,7 @@ class Loader:
             ret = f"""
             <script src="/legacy/library.js"></script>
             <script>window.plugin_name = '{plugin.name}' </script>
-            <base href="http://127.0.0.1:1337/plugins/plugin_resource/{plugin.name}/">
+            <base href="http://127.0.0.1:1338/plugins/plugin_resource/{plugin.name}/">
             {template_data}
             """
             return web.Response(text=ret, content_type="text/html")
