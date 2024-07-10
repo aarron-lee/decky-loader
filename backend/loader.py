@@ -77,10 +77,6 @@ class Loader:
         server_instance.add_routes([
             web.get("/plugins", self.get_plugins),
             web.post("/plugins/{plugin_name}/methods/{method_name}", self.handle_plugin_method_call),
-
-            # The following is legacy plugin code.
-            web.get("/plugins/plugin_resource/{name}/{path:.+}", self.handle_sub_route),
-            web.get("/steam_resource/{path:.+}", self.get_steam_resource)
         ])
 
     async def enable_reload_wait(self):
