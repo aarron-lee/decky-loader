@@ -17,16 +17,8 @@ class Utilities:
         self.util_methods = {
             "ping": self.ping,
             "http_request": self.http_request,
-            "install_plugin": self.install_plugin,
-            "install_plugins": self.install_plugins,
-            "cancel_plugin_install": self.cancel_plugin_install,
-            "confirm_plugin_install": self.confirm_plugin_install,
-            "uninstall_plugin": self.uninstall_plugin,
-            "allow_remote_debugging": self.allow_remote_debugging,
-            "disallow_remote_debugging": self.disallow_remote_debugging,
             "set_setting": self.set_setting,
-            "get_setting": self.get_setting,
-            "filepicker_ls": self.filepicker_ls,
+            "get_setting": self.get_setting
         }
 
         self.logger = getLogger("Utilities")
