@@ -20,6 +20,9 @@ DOWNLOADURL=$(jq -r '.assets[].browser_download_url | select(endswith("Unofficia
 
 printf "Installing version %s...\n" "${VERSION}"
 curl -L $DOWNLOADURL --output ${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
+
+# mv $USER_DIR/Downloads/UnofficialPluginLoader ${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
+
 chmod +x ${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
 
 echo "Check for SELinux presence and if it is present, set the correct permission on the binary file..."
