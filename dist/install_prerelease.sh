@@ -29,7 +29,25 @@ systemctl --user disable unofficial_plugin_loader 2> /dev/null
 systemctl stop unofficial_plugin_loader 2> /dev/null
 systemctl disable unofficial_plugin_loader 2> /dev/null
 
-curl -L https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unofficial_plugin_loader-prerelease.service  --output ${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-prerelease.service
+# curl -L https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unofficial_plugin_loader-prerelease.service  --output ${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-prerelease.service
+
+cat > "${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-prerelease.service" <<- EOM
+[Unit]
+Description=Unofficial SteamDeck Plugin Loader
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+User=root
+Restart=always
+ExecStart=${HOMEBREW_FOLDER}/services/UnofficialPluginLoader
+WorkingDirectory=${HOMEBREW_FOLDER}/services
+KillSignal=SIGKILL
+Environment=PLUGIN_PATH=${HOMEBREW_FOLDER}/plugins
+Environment=LOG_LEVEL=DEBUG
+[Install]
+WantedBy=multi-user.target
+EOM
 
 cat > "${HOMEBREW_FOLDER}/services/unofficial_plugin_loader-backup.service" <<- EOM
 [Unit]

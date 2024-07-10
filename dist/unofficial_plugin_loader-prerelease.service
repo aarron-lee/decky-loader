@@ -1,5 +1,5 @@
 [Unit]
-Description=SteamDeck Plugin Loader
+Description=Unofficial SteamDeck Plugin Loader
 After=network-online.target
 Wants=network-online.target
 [Service]
