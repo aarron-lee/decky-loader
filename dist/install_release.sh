@@ -2,7 +2,7 @@
 
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
-echo "Installing Steam Deck Plugin Loader release..."
+echo "Installing Unofficial Steam Deck Plugin Loader release..."
 
 USER_DIR="$(getent passwd $SUDO_USER | cut -d: -f6)"
 HOMEBREW_FOLDER="${USER_DIR}/.unofficial_homebrew"
