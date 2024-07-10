@@ -8,9 +8,9 @@ USER_DIR="$(getent passwd $SUDO_USER | cut -d: -f6)"
 HOMEBREW_FOLDER="${USER_DIR}/.unofficial_homebrew"
 
 # Disable and remove services
-sudo systemctl disable --now plugin_loader.service > /dev/null
-sudo rm -f "${USER_DIR}/.config/systemd/user/plugin_loader.service"
-sudo rm -f "/etc/systemd/system/plugin_loader.service"
+sudo systemctl disable --now unofficial_plugin_loader.service > /dev/null
+sudo rm -f "${USER_DIR}/.config/systemd/user/unofficial_plugin_loader.service"
+sudo rm -f "/etc/systemd/system/unofficial_plugin_loader.service"
 
 # Remove temporary folder if it exists from the install process
 rm -rf "/tmp/plugin_loader"

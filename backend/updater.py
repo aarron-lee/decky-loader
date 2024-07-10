@@ -81,12 +81,12 @@ class Updater:
         branch = self.get_branch(self.context.settings)
         match branch:
             case 0:
-                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-release.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unofficial_plugin_loader-release.service"
             case 1 | 2:
-                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-prerelease.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unofficial_plugin_loader-prerelease.service"
             case _:
                 logger.error("You have an invalid branch set... Defaulting to prerelease service, please send the logs to the devs!")
-                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-prerelease.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/unofficial_plugin_loader-prerelease.service"
         return str(url)
 
     async def get_version(self):
