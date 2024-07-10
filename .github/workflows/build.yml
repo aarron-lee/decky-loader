@@ -58,14 +58,14 @@ jobs:
 
       - name: Upload package artifact ⬆️
         if: ${{ !env.ACT }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: UnofficialPluginLoader
           path: ./dist/UnofficialPluginLoader
 
       - name: Download package artifact locally
         if: ${{ env.ACT }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: ./dist/UnofficialPluginLoader
 
@@ -86,7 +86,7 @@ jobs:
             semver 3.3.0
 
       - name: Fetch package artifact ⬇️
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         if: ${{ !env.ACT }}
         with:
           name: UnofficialPluginLoader
@@ -165,7 +165,7 @@ jobs:
             semver 3.3.0
 
       - name: Fetch package artifact ⬇️
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         if: ${{ !env.ACT }}
         with:
           name: UnofficialPluginLoader
