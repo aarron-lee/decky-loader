@@ -11,7 +11,7 @@ body:
       options:
         - label: I have searched existing issues
         - label: This issue is not a duplicate of an existing one
-        - label: I have checked the [common issues section in the readme file](https://github.com/SteamDeckHomebrew/decky-loader#-common-issues)
+        - label: I have checked the [common issues section in the readme file](https://github.com/aarron-lee/decky-loader#-common-issues)
         - label: I have attached logs to this bug report (failure to include logs will mean your issue will not be responded too).
 
   - type: textarea
@@ -40,8 +40,8 @@ body:
   - type: input
     attributes:
       label: SteamOS version
-#      description: Can be found with `uname -a`
-#      placeholder: "Linux steamdeck 5.13.0-valve36-1-neptune #1 SMP PREEMPT Mon, 19 Dec 2022 23:39:41 +0000 x86_64 GNU/Linux"
+      #      description: Can be found with `uname -a`
+      #      placeholder: "Linux steamdeck 5.13.0-valve36-1-neptune #1 SMP PREEMPT Mon, 19 Dec 2022 23:39:41 +0000 x86_64 GNU/Linux"
       placeholder: "SteamOS 3.4.3 Stable"
     validations:
       required: true
@@ -52,8 +52,8 @@ body:
       description: Which branch of Decky are you on?
       multiple: false
       options:
-         - Stable
-         - Prerelease
+        - Stable
+        - Prerelease
     validations:
       required: true
 

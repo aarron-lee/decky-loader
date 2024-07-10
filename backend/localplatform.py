@@ -15,7 +15,7 @@ def get_privileged_path() -> str:
     return localplatform.get_privileged_path()
 
 def get_unprivileged_path() -> str:
-    '''Get path accessible by non-elevated user. Holds plugin configuration, plugin data and plugin logs. Externally referred to as the 'Homebrew' directory'''
+    '''Get path accessible by non-elevated user. Holds plugin configuration, plugin data and plugin logs. Externally referred to as the '.unofficial_homebrew' directory'''
     return localplatform.get_unprivileged_path()
 
 def get_unprivileged_user() -> str:

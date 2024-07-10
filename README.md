@@ -3,15 +3,15 @@
   <br>
   Decky Loader
   <br>
-  <a name="download button" href="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/decky_installer.desktop"><img src="./docs/images/download_button.svg"  alt="Download decky" width="350px" style="padding-top: 15px;"></a>
+  <a name="download button" href="https://github.com/aarron-lee/decky-installer/releases/latest/download/decky_installer.desktop"><img src="./docs/images/download_button.svg"  alt="Download decky" width="350px" style="padding-top: 15px;"></a>
 </h1>
 
 <p align="center">
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/releases"><img src="https://img.shields.io/github/downloads/SteamDeckHomebrew/decky-loader/total" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/stargazers"><img src="https://img.shields.io/github/stars/SteamDeckHomebrew/decky-loader" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/commits/main"><img src="https://img.shields.io/github/last-commit/SteamDeckHomebrew/decky-loader.svg" /></a>
+  <a href="https://github.com/aarron-lee/decky-loader/releases"><img src="https://img.shields.io/github/downloads/aarron-lee/decky-loader/total" /></a>
+  <a href="https://github.com/aarron-lee/decky-loader/stargazers"><img src="https://img.shields.io/github/stars/aarron-lee/decky-loader" /></a>
+  <a href="https://github.com/aarron-lee/decky-loader/commits/main"><img src="https://img.shields.io/github/last-commit/aarron-lee/decky-loader.svg" /></a>
   <a href="https://weblate.werwolv.net/engage/decky/"><img src="https://weblate.werwolv.net/widgets/decky/-/decky/svg-badge.svg" alt="Translation status" /></a>
-  <a href="https://github.com/SteamDeckHomebrew/decky-loader/blob/main/LICENSE"><img src="https://img.shields.io/github/license/SteamDeckHomebrew/decky-loader" /></a>
+  <a href="https://github.com/aarron-lee/decky-loader/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aarron-lee/decky-loader" /></a>
   <a href="https://deckbrew.xyz/discord"><img src="https://img.shields.io/discord/960281551428522045?color=%235865F2&label=discord" /></a>
   <br>
   <br>
@@ -36,7 +36,7 @@ For more information about Decky Loader as well as documentation and development
 
 - Syncthing may use port 8080 on Steam Deck, which Decky Loader needs to function. If you are using Syncthing as a service, please change its port to something else.
 - If you are using any software that uses port 1338 or 8080, please change its port to something else or uninstall it.
-- Sometimes Decky will disappear on SteamOS updates. This can easily be fixed by just re-running the installer and installing the stable branch again. If this doesn't work, try installing the prerelease instead. If that doesn't work, then [check the existing issues](https://github.com/SteamDeckHomebrew/decky-loader/issues) and if there isn't one then you can [file a new issue](https://github.com/SteamDeckHomebrew/decky-loader/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBUG%5D+%3Ctitle%3E).
+- Sometimes Decky will disappear on SteamOS updates. This can easily be fixed by just re-running the installer and installing the stable branch again. If this doesn't work, try installing the prerelease instead. If that doesn't work, then [check the existing issues](https://github.com/aarron-lee/decky-loader/issues) and if there isn't one then you can [file a new issue](https://github.com/aarron-lee/decky-loader/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBUG%5D+%3Ctitle%3E).
 
 ## 💾 Installation
 
@@ -50,7 +50,7 @@ For more information about Decky Loader as well as documentation and development
 1. Press the <img src="./docs/images/light/steam.svg#gh-dark-mode-only" height=16><img src="./docs/images/dark/steam.svg#gh-light-mode-only" height=16> button and open the Power menu.
 1. Select "Switch to Desktop".
 1. Navigate to this Github page on a browser of your choice.
-1. Download the [installer file](https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/decky_installer.desktop).
+1. Download the [installer file](https://github.com/aarron-lee/decky-installer/releases/latest/download/decky_installer.desktop).
 1. Drag the file onto your desktop and double click it to run it.
 1. Either type your admin password or allow Decky to temporarily set your admin password to `Decky!` (this password will be removed after the installer finishes)
 1. Choose the version of Decky Loader you want to install.
@@ -60,17 +60,17 @@ For more information about Decky Loader as well as documentation and development
      Intended for plugin developers. Pre-releases are unlikely to be fully stable but contain the latest changes. For more information on plugin development, please consult [the wiki page](https://wiki.deckbrew.xyz/en/loader-dev/development).
 1. Open the Return to Gaming Mode shortcut on your desktop.
 
-- There is also a fast install for those who can use Konsole. Run `curl -L https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh | sh` and type your password when prompted.
+- There is also a fast install for those who can use Konsole. Run `curl -L https://github.com/aarron-lee/decky-installer/releases/latest/download/install_release.sh | sh` and type your password when prompted.
 
 ### 👋 Uninstallation
 
-We are sorry to see you go! If you are considering uninstalling because you are having issues, please consider [opening an issue](https://github.com/SteamDeckHomebrew/decky-loader/issues) or [joining our Discord](https://deckbrew.xyz/discord) so we can help you and other users.
+We are sorry to see you go! If you are considering uninstalling because you are having issues, please consider [opening an issue](https://github.com/aarron-lee/decky-loader/issues) or [joining our Discord](https://deckbrew.xyz/discord) so we can help you and other users.
 
 1. Press the <img src="./docs/images/light/steam.svg#gh-dark-mode-only" height=16><img src="./docs/images/dark/steam.svg#gh-light-mode-only" height=16> button and open the Power menu.
 1. Select "Switch to Desktop".
 1. Run the installer file again, and select `uninstall decky loader`.
 
-- There is also a fast uninstall for those who can use Konsole. Run `curl -L https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/uninstall.sh | sh` and type your password when prompted.
+- There is also a fast uninstall for those who can use Konsole. Run `curl -L https://github.com/aarron-lee/decky-installer/releases/latest/download/uninstall.sh | sh` and type your password when prompted.
 
 ## 🚀 Getting Started
 
@@ -87,7 +87,7 @@ Now that you have Decky Loader installed, you can start using plugins. Each plug
 
 ### 🛠️ Plugin Development
 
-There is no complete plugin development documentation yet. However a good starting point is the [plugin template repository](https://github.com/SteamDeckHomebrew/decky-plugin-template). Consider [joining our Discord](https://deckbrew.xyz/discord) if you have any questions.
+There is no complete plugin development documentation yet. However a good starting point is the [plugin template repository](https://github.com/aarron-lee/decky-plugin-template). Consider [joining our Discord](https://deckbrew.xyz/discord) if you have any questions.
 
 ### 🤝 Contributing
 

@@ -154,7 +154,7 @@
   },
   "Store": {
     "store_contrib": {
-      "desc": "Si vous souhaitez contribuer au Decky Plugin Store, consultez le dépôt SteamDeckHomebrew/decky-plugin-template sur GitHub. Des informations sur le développement et la distribution sont disponibles dans le fichier README.",
+      "desc": "Si vous souhaitez contribuer au Decky Plugin Store, consultez le dépôt aarron-lee/decky-plugin-template sur GitHub. Des informations sur le développement et la distribution sont disponibles dans le fichier README.",
       "label": "Contributions"
     },
     "store_filter": {
@@ -169,7 +169,7 @@
       "label_def": "Mises à jour (Plus récentes)"
     },
     "store_source": {
-      "desc": "Tout le code source des plugins est disponible sur le dépôt SteamDeckHomebrew/decky-plugin-database sur GitHub.",
+      "desc": "Tout le code source des plugins est disponible sur le dépôt aarron-lee/decky-plugin-database sur GitHub.",
       "label": "Code Source"
     },
     "store_tabs": {

@@ -128,7 +128,7 @@
   "Store": {
     "store_contrib": {
       "label": "Mitwirken",
-      "desc": "Wenn du Erweiterungen im Decky Store veröffentlichen willst, besuche die SteamDeckHomebrew/decky-plugin-template Repository auf GitHub. Informationen rund um Entwicklung und Veröffentlichung findest du in der README."
+      "desc": "Wenn du Erweiterungen im Decky Store veröffentlichen willst, besuche die aarron-lee/decky-plugin-template Repository auf GitHub. Informationen rund um Entwicklung und Veröffentlichung findest du in der README."
     },
     "store_filter": {
       "label": "Filter",
@@ -142,7 +142,7 @@
       "label_def": "Zuletzt aktualisiert"
     },
     "store_source": {
-      "desc": "Jeder Erweiterungs Quellcode ist in der SteamDeckHomebrew/decky-plugin-database Repository auf GitHub verfügbar.",
+      "desc": "Jeder Erweiterungs Quellcode ist in der aarron-lee/decky-plugin-database Repository auf GitHub verfügbar.",
       "label": "Quellcode"
     },
     "store_tabs": {

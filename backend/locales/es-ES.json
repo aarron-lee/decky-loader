@@ -91,7 +91,7 @@
       "label": "Ordenar"
     },
     "store_contrib": {
-      "desc": "Si desea contribuir a la Tienda de Decky Plugin, revise el repositorio SteamDeckHomebrew/decky-plugin-template en GitHub. Información acerca del desarrollo y distribución está disponible en al archivo README.",
+      "desc": "Si desea contribuir a la Tienda de Decky Plugin, revise el repositorio aarron-lee/decky-plugin-template en GitHub. Información acerca del desarrollo y distribución está disponible en al archivo README.",
       "label": "Contribuyendo"
     },
     "store_tabs": {

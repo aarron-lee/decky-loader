@@ -127,7 +127,7 @@
   "Store": {
     "store_contrib": {
       "label": "貢獻",
-      "desc": "如果您想為 Decky 外掛程式商店做貢獻，請查看 GitHub 上的 SteamDeckHomebrew/decky-plugin-template 儲存庫。README 中提供了有關開發和發佈的資訊。"
+      "desc": "如果您想為 Decky 外掛程式商店做貢獻，請查看 GitHub 上的 aarron-lee/decky-plugin-template 儲存庫。README 中提供了有關開發和發佈的資訊。"
     },
     "store_filter": {
       "label": "過濾",
@@ -142,7 +142,7 @@
     },
     "store_source": {
       "label": "原始碼",
-      "desc": "所有外掛程式原始碼可以在 GitHub 的 SteamDeckHomebrew/decky-plugin-database 儲存庫查看。"
+      "desc": "所有外掛程式原始碼可以在 GitHub 的 aarron-lee/decky-plugin-database 儲存庫查看。"
     },
     "store_tabs": {
       "about": "關於",

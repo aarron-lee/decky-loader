@@ -81,12 +81,12 @@ class Updater:
         branch = self.get_branch(self.context.settings)
         match branch:
             case 0:
-                url = "https://raw.githubusercontent.com/SteamDeckHomebrew/decky-loader/main/dist/plugin_loader-release.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-release.service"
             case 1 | 2:
-                url = "https://raw.githubusercontent.com/SteamDeckHomebrew/decky-loader/main/dist/plugin_loader-prerelease.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-prerelease.service"
             case _:
                 logger.error("You have an invalid branch set... Defaulting to prerelease service, please send the logs to the devs!")
-                url = "https://raw.githubusercontent.com/SteamDeckHomebrew/decky-loader/main/dist/plugin_loader-prerelease.service"
+                url = "https://raw.githubusercontent.com/aarron-lee/decky-loader/main/dist/plugin_loader-prerelease.service"
         return str(url)
 
     async def get_version(self):
@@ -101,7 +101,7 @@ class Updater:
         logger.debug("checking for updates")
         selectedBranch = self.get_branch(self.context.settings)
         async with ClientSession() as web:
-            async with web.request("GET", "https://api.github.com/repos/SteamDeckHomebrew/decky-loader/releases", ssl=helpers.get_ssl_context()) as res:
+            async with web.request("GET", "https://api.github.com/repos/aarron-lee/decky-loader/releases", ssl=helpers.get_ssl_context()) as res:
                 remoteVersions = await res.json()
                 if selectedBranch == 0:
                     logger.debug("release type: release")

@@ -126,7 +126,7 @@
   "Store": {
     "store_contrib": {
       "label": "贡献",
-      "desc": "如果你想要提交你的插件到 Decky 插件商店，请访问 GitHub 上的 SteamDeckHomebrew/decky-plugin-template 存储库，关于开发和分发的相关信息，请查看 README 文件"
+      "desc": "如果你想要提交你的插件到 Decky 插件商店，请访问 GitHub 上的 aarron-lee/decky-plugin-template 存储库，关于开发和分发的相关信息，请查看 README 文件"
     },
     "store_filter": {
       "label": "过滤器",
@@ -141,7 +141,7 @@
     },
     "store_source": {
       "label": "源代码",
-      "desc": "所有插件的源代码都可以在 GitHub 上的 SteamDeckHomebrew/decky-plugin-database 存储库中获得"
+      "desc": "所有插件的源代码都可以在 GitHub 上的 aarron-lee/decky-plugin-database 存储库中获得"
     },
     "store_tabs": {
       "about": "关于",

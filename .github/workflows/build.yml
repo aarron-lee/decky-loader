@@ -135,7 +135,7 @@ jobs:
         id: latest_release
         env:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: "SteamDeckHomebrew/decky-loader"
+          repository: "aarron-lee/decky-loader"
           type: "nodraft"
 
       - name: Prepare tag ⚙️
@@ -214,7 +214,7 @@ jobs:
         id: latest_release
         env:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: "SteamDeckHomebrew/decky-loader"
+          repository: "aarron-lee/decky-loader"
           type: "nodraft"
 
       - name: Prepare tag ⚙️

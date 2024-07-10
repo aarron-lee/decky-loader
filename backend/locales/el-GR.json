@@ -120,7 +120,7 @@
   "Store": {
     "store_contrib": {
       "label": "Συνεισφέροντας",
-      "desc": "Αν θέλετε να συνεισφέρετε στο κατάστημα επεκτάσεων του Decky, τσεκάρετε το SteamDeckHomebrew/decky-plugin-template repository στο GitHub. Πληροφοριές σχετικά με τη δημιουργία και τη διανομή επεκτάσεων είναι διαθέσιμες στο README."
+      "desc": "Αν θέλετε να συνεισφέρετε στο κατάστημα επεκτάσεων του Decky, τσεκάρετε το aarron-lee/decky-plugin-template repository στο GitHub. Πληροφοριές σχετικά με τη δημιουργία και τη διανομή επεκτάσεων είναι διαθέσιμες στο README."
     },
     "store_filter": {
       "label": "Φίλτρο",
@@ -134,7 +134,7 @@
       "label_def": "Τελευταία ενημέρωση (Νεότερα)"
     },
     "store_source": {
-      "desc": "Ο πηγαίος κώδικας όλων των επεκτάσεων είναι διαθέσιμος στο SteamDeckHomebrew/decky-plugin-database repository στο GitHub.",
+      "desc": "Ο πηγαίος κώδικας όλων των επεκτάσεων είναι διαθέσιμος στο aarron-lee/decky-plugin-database repository στο GitHub.",
       "label": "Πηγαίος κώδικας"
     },
     "store_tabs": {
