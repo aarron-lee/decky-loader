@@ -10,7 +10,6 @@ from os.path import exists
 from watchdog.events import RegexMatchingEventHandler
 from watchdog.observers import Observer
 
-from injector import get_tab, get_gamepadui_tab
 from plugin import PluginWrapper
 
 class FileChangeHandler(RegexMatchingEventHandler):
@@ -76,15 +75,10 @@ class Loader:
             self.loop.create_task(self.enable_reload_wait())
 
         server_instance.add_routes([
-            web.get("/frontend/{path:.*}", self.handle_frontend_assets),
-            web.get("/locales/{path:.*}", self.handle_frontend_locales),
             web.get("/plugins", self.get_plugins),
-            web.get("/plugins/{plugin_name}/frontend_bundle", self.handle_frontend_bundle),
             web.post("/plugins/{plugin_name}/methods/{method_name}", self.handle_plugin_method_call),
-            web.get("/plugins/{plugin_name}/assets/{path:.*}", self.handle_plugin_frontend_assets),
 
             # The following is legacy plugin code.
-            web.get("/plugins/load_main/{name}", self.load_plugin_main_view),
             web.get("/plugins/plugin_resource/{name}/{path:.+}", self.handle_sub_route),
             web.get("/steam_resource/{path:.+}", self.get_steam_resource)
         ])
@@ -95,35 +89,9 @@ class Loader:
             self.logger.info("Hot reload enabled")
             self.watcher.disabled = False
 
-    async def handle_frontend_assets(self, request):
-        file = path.join(path.dirname(__file__), "static", request.match_info["path"])
-
-        return web.FileResponse(file, headers={"Cache-Control": "no-cache"})
-
-    async def handle_frontend_locales(self, request):
-        req_lang = request.match_info["path"]
-        file = path.join(path.dirname(__file__), "locales", req_lang)
-        if exists(file):
-            return web.FileResponse(file, headers={"Cache-Control": "no-cache", "Content-Type": "application/json"})
-        else:
-            self.logger.info(f"Language {req_lang} not available, returning an empty dictionary")
-            return web.json_response(data={}, headers={"Cache-Control": "no-cache"})
-
     async def get_plugins(self, request):
         plugins = list(self.plugins.values())
         return web.json_response([{"name": str(i) if not i.legacy else "$LEGACY_"+str(i), "version": i.version} for i in plugins])
-
-    def handle_plugin_frontend_assets(self, request):
-        plugin = self.plugins[request.match_info["plugin_name"]]
-        file = path.join(self.plugin_path, plugin.plugin_directory, "dist/assets", request.match_info["path"])
-
-        return web.FileResponse(file, headers={"Cache-Control": "no-cache"})
-
-    def handle_frontend_bundle(self, request):
-        plugin = self.plugins[request.match_info["plugin_name"]]
-
-        with open(path.join(self.plugin_path, plugin.plugin_directory, "dist/index.js"), "r", encoding="utf-8") as bundle:
-            return web.Response(text=bundle.read(), content_type="application/javascript")
 
     def import_plugin(self, file, plugin_directory, refresh=False, batch=False):
         try:
@@ -139,15 +107,9 @@ class Loader:
                 self.logger.info(f"Plugin {plugin.name} is passive")
             self.plugins[plugin.name] = plugin.start()
             self.logger.info(f"Loaded {plugin.name}")
-            if not batch:
-                self.loop.create_task(self.dispatch_plugin(plugin.name if not plugin.legacy else "$LEGACY_" + plugin.name, plugin.version))
         except Exception as e:
             self.logger.error(f"Could not load {file}. {e}")
             print_exc()
-
-    async def dispatch_plugin(self, name, version):
-        gpui_tab = await get_gamepadui_tab()
-        await gpui_tab.evaluate_js(f"window.importDeckyPlugin('{name}', '{version}')")
 
     def import_plugins(self):
         self.logger.info(f"import plugins from {self.plugin_path}")
@@ -180,40 +142,3 @@ class Loader:
             res["result"] = str(e)
             res["success"] = False
         return web.json_response(res)
-
-    """
-    The following methods are used to load legacy plugins, which are considered deprecated.
-    I made the choice to re-add them so that the first iteration/version of the react loader
-    can work as a drop-in replacement for the stable branch of the UnofficialPluginLoader, so that we
-    can introduce it more smoothly and give people the chance to sample the new features even
-    without plugin support. They will be removed once legacy plugins are no longer relevant.
-    """
-    async def load_plugin_main_view(self, request):
-        plugin = self.plugins[request.match_info["name"]]
-        with open(path.join(self.plugin_path, plugin.plugin_directory, plugin.main_view_html), "r", encoding="utf-8") as template:
-            template_data = template.read()
-            ret = f"""
-            <script src="/legacy/library.js"></script>
-            <script>window.plugin_name = '{plugin.name}' </script>
-            <base href="http://127.0.0.1:1338/plugins/plugin_resource/{plugin.name}/">
-            {template_data}
-            """
-            return web.Response(text=ret, content_type="text/html")
-
-    async def handle_sub_route(self, request):
-        plugin = self.plugins[request.match_info["name"]]
-        route_path = request.match_info["path"]
-        self.logger.info(path)
-        ret = ""
-        file_path = path.join(self.plugin_path, plugin.plugin_directory, route_path)
-        with open(file_path, "r", encoding="utf-8") as resource_data:
-            ret = resource_data.read()
-
-        return web.Response(text=ret)
-
-    async def get_steam_resource(self, request):
-        tab = await get_tab("SP")
-        try:
-            return web.Response(text=await tab.get_steam_resource(f"https://steamloopback.host/{request.match_info['path']}"), content_type="text/html")
-        except Exception as e:
-            return web.Response(text=str(e), status=400)

@@ -11,7 +11,6 @@ from localplatform import chmod, service_restart, ON_LINUX, get_keep_systemd_ser
 from aiohttp import ClientSession, web
 
 import helpers
-from injector import get_gamepadui_tab, inject_to_tab
 from settings import SettingsManager
 
 logger = getLogger("Updater")
@@ -139,78 +138,7 @@ class Updater:
             await sleep(60 * 60 * 6) # 6 hours
 
     async def do_update(self):
-        logger.debug("Starting update.")
-        version = self.remoteVer["tag_name"]
-        download_url = None
-        download_filename = "UnofficialPluginLoader" if ON_LINUX else "UnofficialPluginLoader.exe"
-        download_temp_filename = download_filename + ".new"
-
-        for x in self.remoteVer["assets"]:
-            if x["name"] == download_filename:
-                download_url = x["browser_download_url"]
-                break
+        logger.debug("do update.")
         
-        if download_url == None:
-            raise Exception("Download url not found")
-
-        service_url = self.get_service_url()
-        logger.debug("Retrieved service URL")
-
-        tab = await get_gamepadui_tab()
-        await tab.open_websocket()
-        async with ClientSession() as web:
-            if ON_LINUX and not get_keep_systemd_service():
-                logger.debug("Downloading systemd service")
-                # download the relevant systemd service depending upon branch
-                async with web.request("GET", service_url, ssl=helpers.get_ssl_context(), allow_redirects=True) as res:
-                    logger.debug("Downloading service file")
-                    data = await res.content.read()
-                logger.debug(str(data))
-                service_file_path = path.join(getcwd(), "plugin_loader.service")
-                try:
-                    with open(path.join(getcwd(), "plugin_loader.service"), "wb") as out:
-                        out.write(data)
-                except Exception as e:
-                    logger.error(f"Error at %s", exc_info=e)
-                with open(path.join(getcwd(), "plugin_loader.service"), "r", encoding="utf-8") as service_file:
-                    service_data = service_file.read()
-                service_data = service_data.replace("${HOMEBREW_FOLDER}", helpers.get_homebrew_path())
-                with open(path.join(getcwd(), "plugin_loader.service"), "w", encoding="utf-8") as service_file:
-                        service_file.write(service_data)
-                    
-                logger.debug("Saved service file")
-                logger.debug("Copying service file over current file.")
-                shutil.copy(service_file_path, "/etc/systemd/system/plugin_loader.service")
-                if not os.path.exists(path.join(getcwd(), ".systemd")):
-                    os.mkdir(path.join(getcwd(), ".systemd"))
-                shutil.move(service_file_path, path.join(getcwd(), ".systemd")+"/plugin_loader.service")
-            
-            logger.debug("Downloading binary")
-            async with web.request("GET", download_url, ssl=helpers.get_ssl_context(), allow_redirects=True) as res:
-                total = int(res.headers.get('content-length', 0))
-                with open(path.join(getcwd(), download_temp_filename), "wb") as out:
-                    progress = 0
-                    raw = 0
-                    async for c in res.content.iter_chunked(512):
-                        out.write(c)
-                        raw += len(c)
-                        new_progress = round((raw / total) * 100)
-                        if progress != new_progress:
-                            self.context.loop.create_task(tab.evaluate_js(f"window.DeckyUpdater.updateProgress({new_progress})", False, False, False))
-                            progress = new_progress
-
-            with open(path.join(getcwd(), ".loader.version"), "w", encoding="utf-8") as out:
-                out.write(version)
-
-            if ON_LINUX:
-                remove(path.join(getcwd(), download_filename))
-                shutil.move(path.join(getcwd(), download_temp_filename), path.join(getcwd(), download_filename))
-                chmod(path.join(getcwd(), download_filename), 777, False)
-
-            logger.info("Updated loader installation.")
-            await tab.evaluate_js("window.DeckyUpdater.finish()", False, False)
-            await self.do_restart()
-            await tab.close_websocket()
-
     async def do_restart(self):
         await service_restart("plugin_loader")
