@@ -92,7 +92,6 @@ class PluginManager:
         # await self.wait_for_server()
         logger.debug("Loading plugins")
         self.plugin_loader.import_plugins()
-        # await inject_to_tab("SP", "window.syncDeckyPlugins();")
         if self.settings.getSetting("pluginOrder", None) == None:
           self.settings.setSetting("pluginOrder", list(self.plugin_loader.plugins.keys()))
           logger.debug("Did not find pluginOrder setting, set it to default")

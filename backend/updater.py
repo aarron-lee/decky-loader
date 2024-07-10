@@ -124,8 +124,6 @@ class Updater:
             logger.error("release type: NOT FOUND")
             raise ValueError("no valid branch found")
         logger.info("Updated remote version information")
-        tab = await get_gamepadui_tab()
-        await tab.evaluate_js(f"window.DeckyPluginLoader.notifyUpdates()", False, True, False)
         return await self.get_version()
 
     async def version_reloader(self):
