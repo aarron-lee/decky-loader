@@ -6,11 +6,13 @@
 
 This is a fork of Decky Loader intended to be used solely with [SimpleDeckyTDP-Desktop](https://github.com/aarron-lee/SimpleDeckyTDP-Desktop) and [PowerControl-Electron](https://github.com/aarron-lee/PowerControl-Electron)
 
-This fork uses an older version of decky loader without websocket-related changes. Upstream Decky's new websocket functionality completely breaks the desktop apps.
-
 Unofficial decky loader can be used alongside regular Decky loader, they do not interfere with each other.
 
-All files for unofficialy decky loader can be found in `$HOME/.unofficial_homebrew`, and the systemd service is called `unofficial_plugin_loader.service`
+This uses an older version of decky loader without websocket-related changes. Upstream Decky's new websocket functionality completely breaks the desktop apps.
+
+This fork also does not inject any js into the Steam BPM frontend, it is purely the python backend without any GUI/UI components.
+
+All files for unofficialy decky loader can be found in `$HOME/.unofficial_homebrew`, and the systemd service is called `unofficial_plugin_loader.service`. This uses port 1338 for the backend
 
 ## Installation
 
